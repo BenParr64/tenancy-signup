@@ -2,9 +2,10 @@ import { Typography, TextField, Button } from "@mui/material";
 import { Formik, Form, Field } from "formik";
 
 interface FormData {
-  fullName: string;
   firstName: string;
+  surname: string;
   email: string;
+  telephone: string;
   moveInDate: string;
 }
 
@@ -14,9 +15,10 @@ export interface TenancyFormProps {
 
 export const TenancyForm = ({ setSubmitted }: TenancyFormProps) => {
   const initialValues: FormData = {
-    fullName: "",
     firstName: "",
+    surname: "",
     email: "",
+    telephone: "",
     moveInDate: "",
   };
 
@@ -37,16 +39,25 @@ export const TenancyForm = ({ setSubmitted }: TenancyFormProps) => {
             <Field
               as={TextField}
               fullWidth
-              label="Full Name"
-              name="fullName"
+              label="First Name"
+              name="firstName"
               required
             />
 
             <Field
               as={TextField}
               fullWidth
-              label="First Name"
-              name="firstName"
+              label="Surname"
+              name="surname"
+              required
+            />
+
+            <Field
+              as={TextField}
+              fullWidth
+              label="Telephone"
+              name="telephone"
+              type="text"
               required
             />
 
