@@ -1,5 +1,7 @@
-import { Typography, TextField, Button } from "@mui/material";
+import { Typography, TextField, Button, CircularProgress } from "@mui/material";
+import axios from "axios";
 import { Formik, Form, Field } from "formik";
+import { useState } from "react";
 
 interface FormData {
   firstName: string;
@@ -14,6 +16,8 @@ export interface TenancyFormProps {
 }
 
 export const TenancyForm = ({ setSubmitted }: TenancyFormProps) => {
+  const [loading, setLoading] = useState(false);
+
   const initialValues: FormData = {
     firstName: "",
     surname: "",
@@ -22,18 +26,21 @@ export const TenancyForm = ({ setSubmitted }: TenancyFormProps) => {
     moveInDate: "",
   };
 
-  const mockSubmit = (values: FormData) => {
+  const submit = async (values: FormData) => {
     console.log("Form submitted with values:", values);
+    setLoading(true);
+    await axios.post(`${import.meta.env.VITE_API_URL}/customers`, values);
+    setLoading(false);
     setSubmitted(true);
   };
 
   return (
     <>
       <Typography variant="h4" gutterBottom>
-        Tenant Information Form
+        Personal Details
       </Typography>
 
-      <Formik initialValues={initialValues} onSubmit={mockSubmit}>
+      <Formik initialValues={initialValues} onSubmit={submit}>
         <Form>
           <div className="grid grid-cols-1 gap-4 mb-4">
             <Field
@@ -90,7 +97,10 @@ export const TenancyForm = ({ setSubmitted }: TenancyFormProps) => {
               color="primary"
               className="w-full"
             >
-              Submit
+              Next
+              {loading && (
+                <CircularProgress color="inherit" size={15} className="ml-2" />
+              )}
             </Button>
             <Button
               type="reset"

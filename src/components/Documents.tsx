@@ -1,10 +1,10 @@
 import { Typography } from "@mui/material";
 
-export const Submitted = () => {
+export const Documents = () => {
   return (
     <>
       <Typography variant="h4" gutterBottom>
-        Form Submitted Successfully!
+        Documents
       </Typography>
       <h2></h2>
       <p>
